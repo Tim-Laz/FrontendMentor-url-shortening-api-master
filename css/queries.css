@@ -61,9 +61,6 @@
     gap: 1.6rem;
   }
 
-  .error .shorten-container {
-  }
-
   .error .shorten-form {
     gap: 3.8rem;
   }
@@ -73,9 +70,6 @@
     font-size: 1.2rem;
     line-height: 150%;
     letter-spacing: 0.0818182px;
-  }
-
-  .error .input-cont {
   }
 
   .error .statistics-title-container {
@@ -96,16 +90,12 @@
     font-size: 1.8rem;
   }
 
-  .links-container {
-  }
   .link-block {
     flex-direction: column;
     align-items: unset;
     gap: 0.6rem;
     padding: 0.6rem 1.6rem 1.6rem;
     overflow-x: visible;
-  }
-  .link-orig-cont {
   }
 
   .link-orig {
@@ -121,6 +111,7 @@
   }
   .btn-copy {
     width: 100%;
+    padding: 0.9rem 2rem 0.7rem;
   }
 
   .link-short-btn::before {

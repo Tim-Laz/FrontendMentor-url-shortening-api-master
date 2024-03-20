@@ -99,7 +99,7 @@ a:visited {
   cursor: pointer;
   text-decoration: none;
   font-family: var(--poppins);
-  transition: all 0.3s;
+  transition: background-color 0.3s;
 }
 
 .btn:hover {
@@ -139,8 +139,7 @@ main {
   gap: 7rem;
   padding-bottom: 16.4rem;
 }
-.hero {
-}
+
 .heading-primary {
   font-weight: 700;
   font-size: 8rem;
@@ -160,8 +159,6 @@ main {
 .btn-cta {
   padding: 1.4rem 4.03rem;
   font-size: 2rem;
-}
-.img-working-container {
 }
 
 .img-working {
@@ -321,6 +318,15 @@ main {
   font-size: 1.5rem;
   line-height: 22px;
   padding: 1rem 3.1rem 0.7rem 3.1rem;
+}
+
+.btn-copied {
+  background-color: #3a3054;
+  padding: 1rem 2.1rem 0.7rem;
+}
+
+.btn-copied:hover {
+  background-color: #3a3054;
 }
 
 .statistics-title-container {
@@ -488,9 +494,6 @@ main {
   gap: 7.8rem;
 }
 
-.nav-col {
-}
-
 .nav-col:nth-child(3) {
   margin-left: 2.8rem;
 }
@@ -528,17 +531,11 @@ li {
   color: #2bd0d0;
 }
 
-.social {
-}
-
 .social-list {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 2.4rem;
-}
-
-.social-link {
 }
 
 .svg-img {
