@@ -8,11 +8,14 @@ const linksContainer = document.querySelector(".links-container");
 const errorMsg = document.querySelector(".error-msg");
 
 class ShortenApp {
+  #shortLinks = [];
+
   constructor() {
     form.addEventListener("submit", this.showInputError);
     linkInput.addEventListener("input", this.hideInputError);
     form.addEventListener("submit", this.renderLinkBlockView.bind(this));
     linksContainer.addEventListener("click", this.copy);
+    window.addEventListener("load", this.loadFromLocalStorage.bind(this));
   }
 
   showInputError(e) {
@@ -47,7 +50,6 @@ class ShortenApp {
         throw new Error(`Something went wrong, status: ${response.status}`);
       }
       const json = await response.json();
-      console.log(json.result_url);
       return json.result_url;
     } catch (error) {
       throw error;
@@ -76,6 +78,9 @@ class ShortenApp {
       if (!longUrl) return;
       const shortUrl = await this.getResponse(longUrl);
       this.renderMarkup(longUrl, shortUrl);
+      this.#shortLinks.push({ long: longUrl, short: shortUrl });
+      this.updateLocalStorage();
+      console.log(this.#shortLinks);
     } catch (error) {
       this.showApiError(error);
     } finally {
@@ -86,13 +91,30 @@ class ShortenApp {
   async copy(e) {
     if (!e.target.classList.contains("btn-copy")) return;
     const shortLinkText = e.target.previousElementSibling.textContent;
+    let curBtn = e.target;
     await navigator.clipboard.writeText(shortLinkText);
     linksContainer.querySelectorAll(".btn-copy").forEach((btn) => {
       btn.classList.remove("btn-copied");
       btn.textContent = "Copy";
     });
-    e.target.classList.add("btn-copied");
-    e.target.textContent = "Copied!";
+    curBtn.classList.add("btn-copied");
+    curBtn.textContent = "Copied!";
+    setTimeout(() => {
+      curBtn.classList.remove("btn-copied");
+      curBtn.textContent = "Copy";
+    }, 2000);
+  }
+
+  updateLocalStorage() {
+    localStorage.setItem("shortLinks", JSON.stringify(this.#shortLinks));
+  }
+
+  loadFromLocalStorage() {
+    const localLinks = JSON.parse(localStorage?.getItem("shortLinks"));
+    this.#shortLinks = localLinks || [];
+    this.#shortLinks.forEach((link) => {
+      this.renderMarkup(link.long, link.short);
+    });
   }
 }
 
