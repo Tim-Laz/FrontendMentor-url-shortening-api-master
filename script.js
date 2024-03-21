@@ -64,7 +64,7 @@ class ShortenApp {
     try {
       if (!url) return;
       const response = await fetch(
-        `http://tinyurl.com/api-create.php?url=${url}`
+        `https://tinyurl.com/api-create.php?url=${url}`
       );
       if (response.status !== 200) {
         throw new Error(`Something went wrong, status: ${response.status}`);
