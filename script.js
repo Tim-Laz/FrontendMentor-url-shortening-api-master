@@ -37,20 +37,40 @@ class ShortenApp {
     }
   }
 
+  //Method for cleanuri API
+
+  // async getResponse(url) {
+  //   try {
+  //     if (!url) return;
+  //     const response = await fetch("https://cleanuri.com/api/v1/shorten", {
+  //       method: "POST",
+  //       body: new URLSearchParams({
+  //         url: url,
+  //       }),
+  //     });
+  //     if (response.status !== 200) {
+  //       throw new Error(`Something went wrong, status: ${response.status}`);
+  //     }
+  //     const json = await response.json();
+  //     return json.result_url;
+  //   } catch (error) {
+  //     throw error;
+  //   }
+  // }
+
+  //Method for tinyurl API
+
   async getResponse(url) {
     try {
       if (!url) return;
-      const response = await fetch("https://cleanuri.com/api/v1/shorten", {
-        method: "POST",
-        body: new URLSearchParams({
-          url: url,
-        }),
-      });
+      const response = await fetch(
+        `http://tinyurl.com/api-create.php?url=${url}`
+      );
       if (response.status !== 200) {
         throw new Error(`Something went wrong, status: ${response.status}`);
       }
-      const json = await response.json();
-      return json.result_url;
+      const text = await response.text();
+      return text;
     } catch (error) {
       throw error;
     }
@@ -80,7 +100,6 @@ class ShortenApp {
       this.renderMarkup(longUrl, shortUrl);
       this.#shortLinks.push({ long: longUrl, short: shortUrl });
       this.updateLocalStorage();
-      console.log(this.#shortLinks);
     } catch (error) {
       this.showApiError(error);
     } finally {
